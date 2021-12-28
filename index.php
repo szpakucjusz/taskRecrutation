@@ -1,15 +1,11 @@
 <?php
 
-use App\Exception\MainException;
+use Infrastructure\Exception\MainException;
 use Config\Router;
 
-ini_set ('display_errors', 1);
-ini_set ('display_startup_errors', 1);
-error_reporting (E_ALL);
-require 'functions.php';
+require 'autoloader.php';
 
 $controller = Router::fitUrl();
-
 $method = new ReflectionMethod($controller, '__invoke');
 $controllerRequestName = prepareControllerRequestName($controller, $method->getParameters());
 
@@ -24,8 +20,9 @@ try {
 function prepareControllerRequestName(object $controller, array $parameters): ?string
 {
     if (is_countable($parameters) && 1 === count($parameters) && 'request' === $parameters[0]->getName()) {
-        $reflect = new ReflectionClass($controller);
-        return 'App\Request\\' . $reflect->getShortName() . 'Request';
+        $reflectionClass = new ReflectionClass($controller);
+
+        return 'App\Request\\' . $reflectionClass->getShortName() . 'Request';
     }
 
     return null;
