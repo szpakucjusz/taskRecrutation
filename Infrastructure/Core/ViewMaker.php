@@ -6,16 +6,16 @@ namespace Infrastructure\Core;
 
 class ViewMaker
 {
+    private TemplateRendererInterface $maker;
+
+    public function __construct()
+    {
+        $this->maker = new PhpTemplateRenderer();
+    }
+
     /** @param array|null|mixed[] $parameters */
     public function render(string $templateName = '', ?array $parameters = []): string
     {
-        if ( is_array( $parameters ) ){
-            extract( $parameters );
-        }
-
-        ob_start();
-        include __DIR__ . '/../../templates/' . $templateName . '.php';
-
-        return ob_get_clean();
+        return $this->maker->render($templateName, $parameters);
     }
 }
