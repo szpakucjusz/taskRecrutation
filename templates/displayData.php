@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="main-block">
-    <a href="/testTask/index.php">Back to form</a>
+    <a href="/taskRecrutation/index.php">Back to form</a>
     <?php
     foreach ($parsedFileData as $data) {
             print_r("<pre>");

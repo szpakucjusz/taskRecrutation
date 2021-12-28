@@ -78,7 +78,7 @@
 <body>
 <div class="main-block">
     <h1>Data form</h1>
-    <form action="/testTask/index.php/display-data" method="POST" enctype="multipart/form-data">
+    <form action="/taskRecrutation/index.php/display-data" method="POST" enctype="multipart/form-data">
         <hr>
         <label for="filename"><i class="fas"></i></label>
         <input type="file" name="filename" id="filename" placeholder="File Name" required/>
