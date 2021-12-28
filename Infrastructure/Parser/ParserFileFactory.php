@@ -28,7 +28,7 @@ class ParserFileFactory
 
     }
 
-    public function parse(): string
+    public function parse(): array
     {
         return $this->parser->parse($this->file);
     }

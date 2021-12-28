@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Request\Validator;
 
 use Infrastructure\Exception\InvalidArgumentException;
+use Infrastructure\Parser\ParserInterface;
 
 class DisplayDataRequestValidator
 {
-    public const ALLOWED_FILE_FORMATS = ['json', 'xml', 'csv'];
+    private const ALLOWED_FILE_FORMATS = [ParserInterface::FORMAT_CSV, ParserInterface::FORMAT_XML, ParserInterface::FORMAT_JSON];
 
     public function validate(): void
     {
