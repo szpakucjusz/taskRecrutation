@@ -40,7 +40,7 @@ class CsvParser implements ParserInterface
         $rowInParsedData = [];
 
         foreach ($row as $key => $value) {
-            $rowInParsedData[$keys[$key]] = $value;
+            $rowInParsedData[trim($keys[$key], '\'')] = $value;
         }
 
         return $rowInParsedData;

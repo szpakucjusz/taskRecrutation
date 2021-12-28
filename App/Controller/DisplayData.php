@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Request\DisplayDataRequest;
+use Infrastructure\Core\ViewMaker;
 use Infrastructure\Parser\ParserFileFactory;
 
 class DisplayData
@@ -13,6 +14,9 @@ class DisplayData
     {
         $params = $request->get();
 
-        return (new ParserFileFactory($params['filename']))->parse();
+        return (new ViewMaker())->render(
+            'displayData',
+            ['parsedFileData' => (new ParserFileFactory($params['filename']))->parse()]
+        );
     }
 }
