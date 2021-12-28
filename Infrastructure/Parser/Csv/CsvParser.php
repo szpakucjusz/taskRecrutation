@@ -15,21 +15,34 @@ class CsvParser implements ParserInterface
         $parsedData = [];
         if (($handle = fopen($file->getFilePath(), "r")) !== false) {
             $keys = [];
+
             while (($row = fgetcsv($handle, 1000, ",")) !== false) {
                 if (0 === count($keys)) {
                     $keys = $row;
                 } else {
-                    $rowInParsedData = [];
-
-                    foreach ($row as $key => $value) {
-                        $rowInParsedData[$keys[$key]] = $value;
-                    }
-                    $parsedData[] = $rowInParsedData;
+                    $parsedData[] = $this->addToParsedData($row, $keys);
                 }
             }
             fclose($handle);
         }
 
         return $parsedData;
+    }
+
+    /**
+     * @param array|mixed[] $row
+     * @param array|mixed[] $keys
+     *
+     * @return array|mixed[]
+     */
+    private function addToParsedData(array $row, array $keys): array
+    {
+        $rowInParsedData = [];
+
+        foreach ($row as $key => $value) {
+            $rowInParsedData[$keys[$key]] = $value;
+        }
+
+        return $rowInParsedData;
     }
 }
