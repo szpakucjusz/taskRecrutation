@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace Infrastructure\Core;
 
-class ViewMaker implements ViewMakerInterface
+class ViewMaker
 {
-    public function render(string $templateName = ''): string
+    /** @param array|null|mixed[] $parameters */
+    public function render(string $templateName = '', ?array $parameters = []): string
     {
-        return file_get_contents(__DIR__ . '/../../templates/' . $templateName . '.php');
+        // Make values in the associative array easier to access by extracting them
+        if ( is_array( $parameters ) ){
+            extract( $parameters );
+        }
+
+        ob_start();
+        include __DIR__ . '/../../templates/' . $templateName . '.php';
+        return ob_get_clean();
     }
 }
