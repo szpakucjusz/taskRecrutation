@@ -8,12 +8,14 @@ use Infrastructure\Exception\InvalidArgumentException;
 
 class DisplayDataRequestValidator
 {
+    public const ALLOWED_FILE_FORMATS = ['json', 'xml', 'csv'];
+
     public function validate(): void
     {
         if (isset($_FILES["filename"])) {
             $filename = $_FILES["filename"]["name"];
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if (! in_array($ext , ['json', 'xml', 'csv'])) {
+            $fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+            if (! in_array($fileExtension , self::ALLOWED_FILE_FORMATS)) {
                 throw new InvalidArgumentException('Invalid file format.');
             }
         } else {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Request;
 
 use App\Request\Validator\DisplayDataRequestValidator;
+use Infrastructure\ValueObject\File;
 
 class DisplayDataRequest
 {
@@ -16,7 +17,7 @@ class DisplayDataRequest
     /** @return array|mixed[] */
     public function get(): array
     {
-        $params = ['filename' => $_FILES['filename']];
+        $params = ['filename' => new File($_FILES['filename'])];
         $_FILES = [];
 
         return $params;

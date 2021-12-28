@@ -6,5 +6,4 @@ namespace Infrastructure\Exception;
 
 class InvalidArgumentException extends MainException
 {
-
 }
